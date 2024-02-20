@@ -38,7 +38,7 @@ class _AddItemPageState extends State<AddItemPage> {
                   SizedBox(height: 10,),
                    Padding(
                     padding: EdgeInsets.only(left: w*.06),
-                    child: Text('Product Photos',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                    child: Text('Product Photos',style: TextStyle(fontSize: w*0.04,fontWeight: FontWeight.w500),),
                   ),
                   const SizedBox(height: 10,),
                   Center(
@@ -59,9 +59,10 @@ class _AddItemPageState extends State<AddItemPage> {
                               viewModel.pickImage();
                             }, icon:
                             Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(height: w*0.115,'assets/img_1.png'),
-                                Text('Upload Files',style: TextStyle(fontSize: 11,color: Colors.black54,),)
+                                Image.asset(height: w*0.09,'assets/img_1.png'),
+                                Text('Upload Files',style: TextStyle(fontSize: w*0.025,color: Colors.black54,),)
                               ],
                             ),
               
@@ -70,9 +71,10 @@ class _AddItemPageState extends State<AddItemPage> {
                               viewModel.takePicture();
                             }, icon:
                             Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(height: w*0.11,'assets/img_2.png'),
-                                Text('Open Camera',style: TextStyle(fontSize: 11,color: Colors.black54,),)
+                                Image.asset(height: w*0.09,'assets/img_2.png'),
+                                Text('Open Camera',style: TextStyle(fontSize: w*0.025,color: Colors.black54,),)
                               ],
                             ),
               
@@ -85,7 +87,8 @@ class _AddItemPageState extends State<AddItemPage> {
                   const SizedBox(height: 10,),
                   Padding(
                     padding: EdgeInsets.only(left: w*.06),
-                    child: Text('Name Of Product',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                    child:
+                    Text('Name Of Product',style: TextStyle(fontSize: w*0.04,fontWeight: FontWeight.w500),),
                   ),
                   const SizedBox(height: 10,),
                   Center(
@@ -103,7 +106,8 @@ class _AddItemPageState extends State<AddItemPage> {
                   const SizedBox(height: 10,),
                   Padding(
                     padding: EdgeInsets.only(left: w*.06),
-                    child: Text('Quantity',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                    child:
+                    Text('Quantity',style: TextStyle(fontSize: w*0.04,fontWeight: FontWeight.w500),),
                   ),
                   const SizedBox(height: 10,),
                   Center(
@@ -121,7 +125,7 @@ class _AddItemPageState extends State<AddItemPage> {
                   const SizedBox(height: 10,),
                   Padding(
                     padding: EdgeInsets.only(left: w*.06),
-                    child: Text('CTC',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                    child: Text('CTC',style: TextStyle(fontSize: w*0.04,fontWeight: FontWeight.w500),),
                   ),
                   const SizedBox(height: 10,),
                   Center(
@@ -139,7 +143,7 @@ class _AddItemPageState extends State<AddItemPage> {
                   const SizedBox(height: 10,),
                   Padding(
                     padding: EdgeInsets.only(left: w*.06),
-                    child:  Text('Description',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                    child:  Text('Description',style: TextStyle(fontSize: w*0.04,fontWeight: FontWeight.w500),),
                   ),
                   const SizedBox(height: 10,),
                   Center(

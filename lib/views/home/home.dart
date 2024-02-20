@@ -1,3 +1,4 @@
+import 'package:cribbies/views/detail_page/detail_page.dart';
 import 'package:cribbies/views/home/home_viewmodel.dart';
 import 'package:cribbies/widgets/custom_floatingaction_button.dart';
 import 'package:cribbies/widgets/drawer.dart';
@@ -43,12 +44,16 @@ class Home extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int index) {
-                  return const Padding(
+                  return  Padding(
                     padding: EdgeInsets.all(6.0),
                     child: Card(
                       elevation: 1,
                       color: Colors.white,
-                      child: SizedBox(height: 120, child: ItemWidget()),
+                      child: SizedBox(height: 120, child: InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailPage()));
+                          },
+                          child: ItemWidget())),
                     ),
                   );
                 },

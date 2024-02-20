@@ -1,6 +1,7 @@
 import 'package:cribbies/splash.dart';
 import 'package:cribbies/views/SignUp/SignUp.dart';
 import 'package:cribbies/views/add_itempage/add_item.dart';
+import 'package:cribbies/views/detail_page/detail_page.dart';
 import 'package:cribbies/views/home/home.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      home: Splash(),
+      home: DetailPage(),
         debugShowCheckedModeBanner: false,
     );
   }

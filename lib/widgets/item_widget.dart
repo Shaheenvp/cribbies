@@ -30,7 +30,13 @@ class ItemWidget extends StatelessWidget {
                 fontSize: 15
               )),
               SizedBox(height: 6,),
-              Text('Descriptionaaaaaa',style: TextStyle(
+              Text('Quantity',style: TextStyle(
+                fontWeight: FontWeight.w300,
+
+              )
+              ),
+              SizedBox(height: 6,),
+              Text('CTC',style: TextStyle(
                 fontWeight: FontWeight.w300,
 
               )
