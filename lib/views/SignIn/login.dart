@@ -1,6 +1,6 @@
-import 'package:cribbies/views/SignIn/login_viewmodel.dart';
-import 'package:cribbies/widgets/custom_elevated_button.dart';
-import 'package:cribbies/widgets/custom_textfeild.dart';
+import 'package:Potrack/views/SignIn/login_viewmodel.dart';
+import 'package:Potrack/widgets/custom_elevated_button.dart';
+import 'package:Potrack/widgets/custom_textfeild.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -27,7 +27,7 @@ class SignIn extends StatelessWidget {
                   SizedBox(height: h * .12),
                   const SizedBox(
                       height: 110,
-                      child: Image(image: AssetImage('assets/cribbies_logo.png'))),
+                      child: Image(image: AssetImage('assets/Potrack_logo.png'))),
                   const Spacer(flex: 18),
                   Padding(
                     padding: EdgeInsets.only(right: w * .67),

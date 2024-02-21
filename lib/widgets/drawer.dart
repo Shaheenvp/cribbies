@@ -1,5 +1,5 @@
-import 'package:cribbies/views/SignIn/login.dart';
-import 'package:cribbies/views/home/home.dart';
+import 'package:Potrack/views/SignIn/login.dart';
+import 'package:Potrack/views/home/home.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {

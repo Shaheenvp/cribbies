@@ -1,4 +1,4 @@
-import 'package:cribbies/views/detail_page/detail_page_viewmodel.dart';
+import 'package:Potrack/views/detail_page/detail_page_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

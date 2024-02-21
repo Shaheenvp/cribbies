@@ -1,8 +1,8 @@
-import 'package:cribbies/splash.dart';
-import 'package:cribbies/views/SignUp/SignUp.dart';
-import 'package:cribbies/views/add_itempage/add_item.dart';
-import 'package:cribbies/views/detail_page/detail_page.dart';
-import 'package:cribbies/views/home/home.dart';
+import 'package:Potrack/splash.dart';
+import 'package:Potrack/views/SignUp/SignUp.dart';
+import 'package:Potrack/views/add_itempage/add_item.dart';
+import 'package:Potrack/views/detail_page/detail_page.dart';
+import 'package:Potrack/views/home/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      home: DetailPage(),
+      home: Splash(),
         debugShowCheckedModeBanner: false,
     );
   }

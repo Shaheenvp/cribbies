@@ -1,5 +1,5 @@
-import 'package:cribbies/views/SignIn/login.dart';
-import 'package:cribbies/views/SignUp/SignUp_viewmodel.dart';
+import 'package:Potrack/views/SignIn/login.dart';
+import 'package:Potrack/views/SignUp/SignUp_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -30,7 +30,7 @@ class _SignUpState extends State<SignUp> {
               SizedBox(height: h * .13),
               const SizedBox(
                   height: 110,
-                  child: Image(image: AssetImage('assets/cribbies_logo.png'))),
+                  child: Image(image: AssetImage('assets/Potrack_logo.png'))),
               const Spacer(flex: 18),
               Padding(
                 padding: EdgeInsets.only(right: w * .66),
