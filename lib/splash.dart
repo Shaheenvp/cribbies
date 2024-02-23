@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:cribbies/views/SignIn/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class Splash extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => SignIn()));
+          context, CupertinoPageRoute(builder: (context) => SignIn()));
     });
     super.initState();
   }

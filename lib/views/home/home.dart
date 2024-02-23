@@ -3,6 +3,7 @@ import 'package:cribbies/views/home/home_viewmodel.dart';
 import 'package:cribbies/widgets/custom_floatingaction_button.dart';
 import 'package:cribbies/widgets/drawer.dart';
 import 'package:cribbies/widgets/item_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -16,7 +17,7 @@ class Home extends StatelessWidget {
       onDispose: (model) {},
       builder: (context, viewModel, child) {
         return Scaffold(
-          key:viewModel.scaffoldKey,
+            key: viewModel.scaffoldKey,
             backgroundColor: Colors.white,
             endDrawer: CustomDrawer(),
             appBar: AppBar(
@@ -27,7 +28,7 @@ class Home extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                     onPressed: () {
-                    viewModel.scaffoldKey.currentState!.openEndDrawer();
+                      viewModel.scaffoldKey.currentState!.openEndDrawer();
                     },
                     icon: Icon(Icons.menu),
                   ),
@@ -44,16 +45,21 @@ class Home extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int index) {
-                  return  Padding(
+                  return Padding(
                     padding: EdgeInsets.all(6.0),
                     child: Card(
                       elevation: 1,
                       color: Colors.white,
-                      child: SizedBox(height: 120, child: InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailPage()));
-                          },
-                          child: ItemWidget())),
+                      child: SizedBox(
+                          height: 120,
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => DetailPage()));
+                              },
+                              child: ItemWidget())),
                     ),
                   );
                 },

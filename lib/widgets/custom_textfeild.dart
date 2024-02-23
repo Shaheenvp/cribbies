@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
+  final String? validateText;
   final IconData? icon;
   final bool obscureText;
   final double? height;
@@ -21,14 +22,20 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.labelTextStyle,
     this.maxLines = 1,
+    this.validateText,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return validateText ?? 'Fill the Field';
+          }
+        },
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
         obscureText: obscureText,
         maxLines: maxLines,
@@ -39,7 +46,8 @@ class CustomTextFormField extends StatelessWidget {
           suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
           border: OutlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          contentPadding: EdgeInsets.fromLTRB(16, height != null ? (height! - 20) / 2 : 10, 16, 0),
+          contentPadding: EdgeInsets.fromLTRB(
+              16, height != null ? (height! - 20) / 2 : 10, 16, 0),
         ),
       ),
     );
