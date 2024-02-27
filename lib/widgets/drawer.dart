@@ -2,6 +2,7 @@ import 'package:cribbies/views/SignIn/login.dart';
 import 'package:cribbies/views/home/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key});
@@ -128,7 +129,13 @@ class CustomDrawer extends StatelessWidget {
                                       },
                                       child: Text('No')),
                                   TextButton(
-                                      onPressed: () {
+                                      onPressed: () async {
+                                        SharedPreferences prefs =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        await prefs.setBool(
+                                            'isLoggedIn', false);
+
                                         Navigator.pushReplacement(
                                             context,
                                             CupertinoPageRoute(

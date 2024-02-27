@@ -1,7 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 class ItemWidget extends StatelessWidget {
-  const ItemWidget({super.key});
+  final String name, ctc, qty, imageUrl, tag;
+  const ItemWidget(
+      {super.key,
+      required this.name,
+      required this.ctc,
+      required this.qty,
+      required this.imageUrl,
+      required this.tag});
 
   @override
   Widget build(BuildContext context) {
@@ -13,45 +21,51 @@ class ItemWidget extends StatelessWidget {
           child: Container(
             height: 98,
             width: 115,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(17)),
-          ),
-            child: Image.asset('assets/img.png',
-              fit: BoxFit.cover,),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(17)),
+            ),
+            child: Hero(
+              tag: tag,
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Name of Product',style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 15
-              )),
-              SizedBox(height: 6,),
-              Text('Quantity',style: TextStyle(
-                fontWeight: FontWeight.w300,
-
-              )
+              Text(name,
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+              SizedBox(
+                height: 6,
               ),
-              SizedBox(height: 6,),
-              Text('CTC',style: TextStyle(
-                fontWeight: FontWeight.w300,
-
-              )
+              Text(qty,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                  )),
+              SizedBox(
+                height: 6,
               ),
-
+              Text(ctc,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                  )),
             ],
           ),
         ),
-        SizedBox(width: w*.09,),
+        SizedBox(
+          width: w * .09,
+        ),
         const Align(
             alignment: Alignment.bottomRight,
-            child: Text('Shabeer KV',style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 11
-            ),))
+            child: Text(
+              'Shabeer KV',
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 11),
+            ))
       ],
     );
   }

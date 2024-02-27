@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cribbies/views/detail_page/detail_page.dart';
 import 'package:cribbies/views/home/home_viewmodel.dart';
-import 'package:cribbies/widgets/custom_floatingaction_button.dart';
 import 'package:cribbies/widgets/drawer.dart';
 import 'package:cribbies/widgets/item_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../main.dart';
+import '../../models/productModel.dart';
+import '../../widgets/customFloatingButton.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -23,6 +27,12 @@ class Home extends StatelessWidget {
             appBar: AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
+              title: Text(
+                'HOME SCREEN',
+                style:
+                    TextStyle(fontSize: w * .06, fontWeight: FontWeight.w500),
+              ),
+              centerTitle: true,
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -35,33 +45,81 @@ class Home extends StatelessWidget {
                 ),
               ],
             ),
-            floatingActionButton: CustomFloatingActionButton(
-              onPressed: () {
+            floatingActionButton: CustomFloatingButton(
+              onTap: () {
                 viewModel.onTapAddButton(context);
               },
+              text: 'ADD PRODUCT ',
             ),
             body: SizedBox(
               height: MediaQuery.of(context).size.height,
-              child: ListView.builder(
-                itemCount: 4,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.all(6.0),
-                    child: Card(
-                      elevation: 1,
-                      color: Colors.white,
-                      child: SizedBox(
-                          height: 120,
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => DetailPage()));
-                              },
-                              child: ItemWidget())),
-                    ),
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('products')
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child:
+                          LinearProgressIndicator(), // Show a loading indicator
+                    );
+                  }
+
+                  // If we reach here, we have data
+                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                  return ListView.builder(
+                    padding: EdgeInsets.only(bottom: w * .25),
+                    itemCount: documents.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final product =
+                          ProductModel.fromSnapshot(documents[index]);
+
+                      // Replace the below return statement with your custom widget
+                      return Padding(
+                          padding: EdgeInsets.all(6.0),
+                          child: Card(
+                            elevation: 1,
+                            color: Colors.white,
+                            child: SizedBox(
+                                height: 120,
+                                child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) => DetailPage(
+                                                    tag: 'tag$index',
+                                                    productModel: product,
+                                                  )));
+                                    },
+                                    child: ItemWidget(
+                                      tag: 'tag$index',
+                                      ctc: product.ctc.toString(),
+                                      name: product.productName,
+                                      qty: product.quantity.toString(),
+                                      imageUrl: product.imageUrl,
+                                    ))),
+                          ));
+                    },
                   );
+                  // return Padding(
+                  //   padding: EdgeInsets.all(6.0),
+                  //   child: Card(
+                  //     elevation: 1,
+                  //     color: Colors.white,
+                  //     child: SizedBox(
+                  //         height: 120,
+                  //         child: InkWell(
+                  //             onTap: () {
+                  //               Navigator.push(
+                  //                   context,
+                  //                   CupertinoPageRoute(
+                  //                       builder: (context) => DetailPage()));
+                  //             },
+                  //             child: ItemWidget())),
+                  //   ),
+                  // );
                 },
               ),
             ));

@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 import '../SignIn/login.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/services.dart';
 class SignUpViewModel extends BaseViewModel {
   final GlobalKey<FormState> formKey = GlobalKey();
   TextEditingController emailController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   Future<void> signUp(BuildContext context) async {
@@ -29,10 +32,21 @@ class SignUpViewModel extends BaseViewModel {
         }
 
         // Sign up the user with email and password
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
           email: email,
           password: password,
-        );
+        )
+            .then((value) async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('isLoggedIn', true);
+
+          await FirebaseFirestore.instance.collection('users').add({
+            'id': value.user?.uid,
+            'email': email,
+            'username': userNameController.text.trim(),
+          });
+        });
 
         // Navigate to the home screen after successful sign-up
         Navigator.pushAndRemoveUntil(

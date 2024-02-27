@@ -2,6 +2,7 @@ import 'package:cribbies/utils/custom_snackBar.dart';
 import 'package:cribbies/utils/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import '../SignUp/SignUp.dart';
 import '../home/home.dart';
@@ -26,10 +27,16 @@ class SignInViewModel extends BaseViewModel {
         }
 
         // Sign in the user with email and password
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
           email: email,
           password: password,
-        );
+        )
+            .then((value) async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('isLoggedIn', true);
+          await prefs.setString('userId', value.user!.uid);
+        });
 
         showSnackBar(
             content: 'Logged In Successfully',

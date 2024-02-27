@@ -1,9 +1,16 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import '../../models/productModel.dart';
 
 class AddItemViewModel extends BaseViewModel {
   TextEditingController productNameController = TextEditingController();
+  TextEditingController qtyController = TextEditingController();
+  TextEditingController ctcController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
   final ImagePicker _imagePicker = ImagePicker();
@@ -20,6 +27,35 @@ class AddItemViewModel extends BaseViewModel {
     }
   }
 
+  Future<String?> uploadImageToFirebase() async {
+    if (pickedImage == null) return null;
+
+    try {
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      await ref.putFile(File(pickedImage!.path));
+
+      String downloadURL = await ref.getDownloadURL();
+
+      return downloadURL;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
+    }
+  }
+
+  Future<void> addProductToFirestore(ProductModel product) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('products')
+          .add(product.toMap());
+    } catch (e) {
+      print('Error adding product to Firestore: $e');
+    }
+  }
+
   Future<void> takePicture() async {
     try {
       final pickedFile =
@@ -28,9 +64,7 @@ class AddItemViewModel extends BaseViewModel {
       if (pickedFile != null) {
         pickedImage = pickedFile;
         notifyListeners();
-        // You can handle the picked image file here.
         print('Image path: ${pickedFile.path}');
-        // Add your logic to use the image as needed.
       } else {
         print('No image selected.');
       }
