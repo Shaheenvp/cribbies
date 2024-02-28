@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cribbies/views/detail_page/detail_page.dart';
-import 'package:cribbies/views/home/home_viewmodel.dart';
-import 'package:cribbies/widgets/drawer.dart';
-import 'package:cribbies/widgets/item_widget.dart';
+import 'package:Potrack/views/detail_page/detail_page.dart';
+import 'package:Potrack/views/home/home_viewmodel.dart';
+import 'package:Potrack/widgets/drawer.dart';
+import 'package:Potrack/widgets/item_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

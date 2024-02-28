@@ -1,5 +1,5 @@
-import 'package:cribbies/utils/custom_snackBar.dart';
-import 'package:cribbies/utils/navigation_service.dart';
+import 'package:Potrack/utils/custom_snackBar.dart';
+import 'package:Potrack/utils/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,5 +1,6 @@
-import 'package:cribbies/views/SignIn/login.dart';
-import 'package:cribbies/views/home/home.dart';
+import 'package:Potrack/views/Sholisted/shortlisted.dart';
+import 'package:Potrack/views/SignIn/login.dart';
+import 'package:Potrack/views/home/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,11 +35,11 @@ class CustomDrawer extends StatelessWidget {
               const Divider(
                 thickness: 1,
               ),
-              const InkWell(
-                // onTap: () {
-                //   Navigator.push(context,
-                //       MaterialPageRoute(builder: (context) => complaints()));
-                // },
+               InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Shortlisted()));
+                },
                 child: ListTile(
                   leading: Icon(Icons.save),
                   title: Text('Shortlisted'),

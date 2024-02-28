@@ -1,5 +1,5 @@
-import 'package:cribbies/views/SignIn/login.dart';
-import 'package:cribbies/views/SignUp/SignUp_viewmodel.dart';
+import 'package:Potrack/views/SignIn/login.dart';
+import 'package:Potrack/views/SignUp/SignUp_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

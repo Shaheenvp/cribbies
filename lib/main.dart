@@ -1,6 +1,6 @@
-import 'package:cribbies/splash.dart';
-import 'package:cribbies/views/SignIn/login.dart';
-import 'package:cribbies/views/home/home.dart';
+import 'package:Potrack/splash.dart';
+import 'package:Potrack/views/SignIn/login.dart';
+import 'package:Potrack/views/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     w = MediaQuery.of(context).size.width;
     return MaterialApp(
-      home: isLoggedIn ? const Home() : SignIn(),
+      home: isLoggedIn ? const Home() : Splash(),
       debugShowCheckedModeBanner: false,
     );
   }

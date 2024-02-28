@@ -1,15 +1,14 @@
 import 'dart:io';
 
-import 'package:cribbies/utils/custom_snackBar.dart';
-import 'package:cribbies/utils/navigation_service.dart';
-import 'package:cribbies/views/home/home.dart';
-import 'package:cribbies/widgets/customFloatingButton.dart';
-import 'package:cribbies/widgets/custom_textfeild.dart';
+import 'package:Potrack/utils/custom_snackBar.dart';
+import 'package:Potrack/utils/navigation_service.dart';
+import 'package:Potrack/views/home/home.dart';
+import 'package:Potrack/widgets/customFloatingButton.dart';
+import 'package:Potrack/widgets/custom_textfeild.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../models/productModel.dart';
-import '../../widgets/custom_elevated_button.dart';
 import 'add_item_viewmodel.dart';
 
 class AddItemPage extends StatefulWidget {
