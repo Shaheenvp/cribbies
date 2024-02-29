@@ -27,18 +27,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    getUsernameFromFirestore().then((value) {
-      setState(() {
-        userName = value!;
-        isLoading = false;
-      });
-    }).catchError((error) {
-      setState(() {
-        isLoading = false;
-        // Handle error
-        print('Error: $error');
-      });
-    });
+    getUsernameFromFirestore();
   }
 
   Future<String?> getUsernameFromFirestore() async {
@@ -51,17 +40,11 @@ class _HomeState extends State<Home> {
         await FirebaseFirestore.instance.collection('users').doc(userId).get();
 
     // Extract username from the user document
-    userName = userSnapshot['username'];
-
-    print(userSnapshot['username']);
-    print("userSnapshot['username']");
-
-    // Handle the case where username is null
-    if (userName == null) {
-      throw ('Username not found for user with ID: $userId');
+    userName = userSnapshot['userName'];
+    print(userName);
+    if (mounted) {
+      setState(() {});
     }
-
-    return userName;
   }
 
   @override
@@ -147,7 +130,8 @@ class _HomeState extends State<Home> {
                                                         )));
                                           },
                                           child: ItemWidget(
-                                            userName: userName!,
+                                            userName:
+                                                product.userName.toUpperCase(),
                                             tag: 'tag$index',
                                             ctc: product.ctc.toString(),
                                             name: product.productName,

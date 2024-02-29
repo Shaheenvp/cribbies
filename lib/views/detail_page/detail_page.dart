@@ -1,6 +1,7 @@
 import 'package:Potrack/models/productModel.dart';
 import 'package:Potrack/utils/navigation_service.dart';
 import 'package:Potrack/views/detail_page/detail_page_viewmodel.dart';
+import 'package:Potrack/views/edit_item/edit_item.dart';
 import 'package:Potrack/views/home/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,15 +95,18 @@ class DetailPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // IconButton(
-                  //     onPressed: () {},
-                  //     icon: Icon(
-                  //       Icons.edit,
-                  //       color: Colors.green,
-                  //     )),
-                  // SizedBox(
-                  //   width: 40,
-                  // ),
+                  IconButton(
+                      onPressed: () => NavigationService.navigateToScreen(
+                          context: context,
+                          screen: EditItem(product: productModel)),
+                      icon: Icon(
+                        Icons.edit,
+                        color: Colors.green,
+                        size: w * .15,
+                      )),
+                  SizedBox(
+                    width: 40,
+                  ),
                   IconButton(
                     onPressed: () async {
                       // Show an alert dialog to confirm deletion

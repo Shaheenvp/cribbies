@@ -44,29 +44,27 @@ class ItemWidget extends StatelessWidget {
               SizedBox(
                 height: 6,
               ),
-              Text(qty,
+              Text('QTY : $qty',
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
                   )),
               SizedBox(
                 height: 6,
               ),
-              Text(ctc,
+              Text('CTC : - $ctc',
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
                   )),
+              Text(
+                'ADDED BY -: $userName',
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
+              )
             ],
           ),
         ),
         SizedBox(
           width: w * .09,
         ),
-        Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              userName,
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 11),
-            ))
       ],
     );
   }
