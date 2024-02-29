@@ -2,14 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ItemWidget extends StatelessWidget {
-  final String name, ctc, qty, imageUrl, tag;
+  final String name, ctc, qty, imageUrl, tag, userName;
   const ItemWidget(
       {super.key,
       required this.name,
       required this.ctc,
       required this.qty,
       required this.imageUrl,
-      required this.tag});
+      required this.tag,
+      required this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +61,10 @@ class ItemWidget extends StatelessWidget {
         SizedBox(
           width: w * .09,
         ),
-        const Align(
+        Align(
             alignment: Alignment.bottomRight,
             child: Text(
-              'Shabeer KV',
+              userName,
               style: TextStyle(fontWeight: FontWeight.w300, fontSize: 11),
             ))
       ],

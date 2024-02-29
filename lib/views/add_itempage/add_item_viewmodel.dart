@@ -7,6 +7,8 @@ import 'package:stacked/stacked.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../models/productModel.dart';
 
+String? imageUrl = '';
+
 class AddItemViewModel extends BaseViewModel {
   TextEditingController productNameController = TextEditingController();
   TextEditingController qtyController = TextEditingController();
@@ -25,6 +27,7 @@ class AddItemViewModel extends BaseViewModel {
       pickedImage = pickedImage;
       notifyListeners();
     }
+    imageUrl = await uploadImageToFirebase();
   }
 
   Future<String?> uploadImageToFirebase() async {
@@ -48,11 +51,20 @@ class AddItemViewModel extends BaseViewModel {
 
   Future<void> addProductToFirestore(ProductModel product) async {
     try {
-      await FirebaseFirestore.instance
+      // Add the product to Firestore
+      DocumentReference docRef = await FirebaseFirestore.instance
           .collection('products')
           .add(product.toMap());
-    } catch (e) {
-      print('Error adding product to Firestore: $e');
+
+      // Get the ID of the newly added document
+      String productId = docRef.id;
+
+      // Update the document with the ID
+      await docRef.update({'id': productId});
+    } catch (error) {
+      // Handle any errors that occur
+      print('Error adding product to Firestore: $error');
+      throw error; // Optionally, re-throw the error to handle it elsewhere
     }
   }
 
@@ -61,6 +73,9 @@ class AddItemViewModel extends BaseViewModel {
       final pickedFile =
           await _imagePicker.pickImage(source: ImageSource.camera);
 
+      print(imageUrl);
+      print("imageUrl");
+
       if (pickedFile != null) {
         pickedImage = pickedFile;
         notifyListeners();
@@ -68,6 +83,7 @@ class AddItemViewModel extends BaseViewModel {
       } else {
         print('No image selected.');
       }
+      imageUrl = await uploadImageToFirebase();
     } catch (e) {
       print('Error taking picture: $e');
     }

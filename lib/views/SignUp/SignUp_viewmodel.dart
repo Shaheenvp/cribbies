@@ -40,12 +40,14 @@ class SignUpViewModel extends BaseViewModel {
             .then((value) async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('isLoggedIn', true);
+          await prefs.setString('userId', value.user!.uid);
 
-          await FirebaseFirestore.instance.collection('users').add({
-            'id': value.user?.uid,
-            'email': email,
-            'username': userNameController.text.trim(),
-          });
+          await FirebaseFirestore.instance.collection('users')
+            ..doc(value.user!.uid).set({
+              'id': value.user?.uid,
+              'email': email,
+              'userName': userNameController.text.trim().toUpperCase(),
+            });
         });
 
         // Navigate to the home screen after successful sign-up

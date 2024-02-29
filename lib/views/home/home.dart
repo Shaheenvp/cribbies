@@ -5,18 +5,68 @@ import 'package:Potrack/widgets/drawer.dart';
 import 'package:Potrack/widgets/item_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../main.dart';
 import '../../models/productModel.dart';
 import '../../widgets/customFloatingButton.dart';
 
-class Home extends StatelessWidget {
+String userName = '';
+
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    getUsernameFromFirestore().then((value) {
+      setState(() {
+        userName = value!;
+        isLoading = false;
+      });
+    }).catchError((error) {
+      setState(() {
+        isLoading = false;
+        // Handle error
+        print('Error: $error');
+      });
+    });
+  }
+
+  Future<String?> getUsernameFromFirestore() async {
+    // Retrieve userId from SharedPreferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+
+    // Query Firestore for the user document
+    DocumentSnapshot userSnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+    // Extract username from the user document
+    userName = userSnapshot['username'];
+
+    print(userSnapshot['username']);
+    print("userSnapshot['username']");
+
+    // Handle the case where username is null
+    if (userName == null) {
+      throw ('Username not found for user with ID: $userId');
+    }
+
+    return userName;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.nonReactive(
+    return ViewModelBuilder<HomeViewModel>.reactive(
       onViewModelReady: (model) {},
       onDispose: (model) {},
       builder: (context, viewModel, child) {
@@ -62,47 +112,57 @@ class Home extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child:
-                          LinearProgressIndicator(), // Show a loading indicator
+                          CircularProgressIndicator(), // Show a loading indicator
                     );
                   }
 
                   // If we reach here, we have data
                   final List<DocumentSnapshot> documents = snapshot.data!.docs;
-                  return ListView.builder(
-                    padding: EdgeInsets.only(bottom: w * .25),
-                    itemCount: documents.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final product =
-                          ProductModel.fromSnapshot(documents[index]);
 
-                      // Replace the below return statement with your custom widget
-                      return Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: Card(
-                            elevation: 1,
-                            color: Colors.white,
-                            child: SizedBox(
-                                height: 120,
-                                child: InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) => DetailPage(
-                                                    tag: 'tag$index',
-                                                    productModel: product,
-                                                  )));
-                                    },
-                                    child: ItemWidget(
-                                      tag: 'tag$index',
-                                      ctc: product.ctc.toString(),
-                                      name: product.productName,
-                                      qty: product.quantity.toString(),
-                                      imageUrl: product.imageUrl,
-                                    ))),
-                          ));
-                    },
-                  );
+                  return documents.isNotEmpty
+                      ? ListView.builder(
+                          padding: EdgeInsets.only(bottom: w * .25),
+                          itemCount: documents.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final product =
+                                ProductModel.fromSnapshot(documents[index]);
+
+                            // Replace the below return statement with your custom widget
+                            return Padding(
+                                padding: EdgeInsets.all(6.0),
+                                child: Card(
+                                  elevation: 1,
+                                  color: Colors.white,
+                                  child: SizedBox(
+                                      height: 120,
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                CupertinoPageRoute(
+                                                    builder: (context) =>
+                                                        DetailPage(
+                                                          tag: 'tag$index',
+                                                          productModel: product,
+                                                        )));
+                                          },
+                                          child: ItemWidget(
+                                            userName: userName!,
+                                            tag: 'tag$index',
+                                            ctc: product.ctc.toString(),
+                                            name: product.productName,
+                                            qty: product.quantity.toString(),
+                                            imageUrl: product.imageUrl,
+                                          ))),
+                                ));
+                          },
+                        )
+                      : Center(
+                          child: Text(
+                          'No Products Added !',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: w * .08),
+                        ));
                   // return Padding(
                   //   padding: EdgeInsets.all(6.0),
                   //   child: Card(

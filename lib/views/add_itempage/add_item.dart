@@ -31,7 +31,7 @@ class _AddItemPageState extends State<AddItemPage> {
       createNewViewModelOnInsert: true,
       builder: (context, viewModel, child) {
         return _isLoading
-            ? Scaffold(body: Center(child: LinearProgressIndicator()))
+            ? Scaffold(body: Center(child: CircularProgressIndicator()))
             : WillPopScope(
                 onWillPop: () {
                   return Future(() => false);
@@ -75,7 +75,9 @@ class _AddItemPageState extends State<AddItemPage> {
                             child: viewModel.pickedImage != null
                                 ? GestureDetector(
                                     onTap: () async {
-                                      viewModel.takePicture();
+                                      await viewModel.takePicture();
+
+                                      setState(() {});
                                     },
                                     child: Image.file(
                                       File(viewModel.pickedImage!.path),
@@ -90,7 +92,9 @@ class _AddItemPageState extends State<AddItemPage> {
                                     children: [
                                       IconButton(
                                         onPressed: () async {
-                                          viewModel.pickImage();
+                                          await viewModel.pickImage();
+
+                                          setState(() {});
                                         },
                                         icon: Column(
                                           mainAxisAlignment:
@@ -251,12 +255,14 @@ class _AddItemPageState extends State<AddItemPage> {
                             true; // Set isLoading to true when starting upload
                       });
                       try {
+                        print(imageUrl);
+                        print("imageUrl");
+                        print(userName);
                         if (viewModel.pickedImage != null) {
-                          String? imageUrl =
-                              await viewModel.uploadImageToFirebase();
-
                           ProductModel product = ProductModel(
-                            productName: viewModel.productNameController.text,
+                            userName: userName,
+                            productName: viewModel.productNameController.text
+                                .toUpperCase(),
                             quantity: int.parse(viewModel.qtyController.text),
                             ctc: double.parse(viewModel.ctcController.text),
                             description: viewModel.descriptionController.text,

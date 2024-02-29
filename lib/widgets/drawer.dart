@@ -1,12 +1,25 @@
+import 'package:Potrack/utils/custom_snackBar.dart';
 import 'package:Potrack/views/Sholisted/shortlisted.dart';
 import 'package:Potrack/views/SignIn/login.dart';
 import 'package:Potrack/views/home/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({Key? key});
+  CustomDrawer({Key? key});
+
+  final CollectionReference productCollection =
+      FirebaseFirestore.instance.collection('products');
+
+  Future<void> deleteAllProducts() async {
+    QuerySnapshot querySnapshot = await productCollection.get();
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await doc.reference.delete();
+    }
+    print('All products deleted successfully');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +48,15 @@ class CustomDrawer extends StatelessWidget {
               const Divider(
                 thickness: 1,
               ),
-               InkWell(
+              InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Shortlisted()));
+                  Navigator.pop(context);
+                  showSnackBar(
+                      content: 'Coming Soon',
+                      context: context,
+                      color: Colors.green);
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => Shortlisted()));
                 },
                 child: ListTile(
                   leading: Icon(Icons.save),
@@ -92,6 +110,38 @@ class CustomDrawer extends StatelessWidget {
                       });
                 },
                 child: ListTile(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Confirm Deletion"),
+                          content: Text(
+                            "Are you sure you want to delete all PRODUCTS ?",
+                            textAlign: TextAlign.center,
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Cancel"),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                await deleteAllProducts();
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(
+                                "Delete",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   leading: Icon(Icons.delete),
                   title: Text('Delete All'),
                 ),
