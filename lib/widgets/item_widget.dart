@@ -55,6 +55,9 @@ class ItemWidget extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
                   )),
+              SizedBox(
+                height: 6,
+              ),
               Text(
                 'ADDED BY -: $userName',
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 11),

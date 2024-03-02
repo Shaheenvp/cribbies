@@ -90,7 +90,7 @@ class DetailPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 100,
+                height: h*0.18,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +102,7 @@ class DetailPage extends StatelessWidget {
                       icon: Icon(
                         Icons.edit,
                         color: Colors.green,
-                        size: w * .15,
+                        size: w * .08,
                       )),
                   SizedBox(
                     width: 40,
@@ -150,7 +150,7 @@ class DetailPage extends StatelessWidget {
                     icon: Icon(
                       CupertinoIcons.delete_solid,
                       color: Colors.red,
-                      size: w * .15,
+                      size: w * .08,
                     ),
                   )
                 ],

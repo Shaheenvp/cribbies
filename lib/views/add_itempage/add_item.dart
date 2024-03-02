@@ -291,7 +291,7 @@ class _AddItemPageState extends State<AddItemPage> {
                         }
                       } catch (e) {
                         showSnackBar(
-                            content: 'Error Adding Productaaaaaaa',
+                            content: 'Error Adding Product',
                             context: context,
                             color: Colors.red);
                       } finally {

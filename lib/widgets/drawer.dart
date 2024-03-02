@@ -152,56 +152,50 @@ class CustomDrawer extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(7.0),
-                    child: Icon(
-                      Icons.logout,
-                      color: Colors.red,
-                      size: 20,
-                    ),
+                  Icon(
+                    Icons.logout,
+                    color: Colors.red,
+                    size: 20,
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(7.0),
-                    child: TextButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Are you sure you want to logout!',
-                                    style: TextStyle(fontSize: 16)),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pushReplacement(
-                                            context,
-                                            CupertinoPageRoute(
-                                                builder: (context) => Home()));
-                                      },
-                                      child: Text('No')),
-                                  TextButton(
-                                      onPressed: () async {
-                                        SharedPreferences prefs =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        await prefs.setBool(
-                                            'isLoggedIn', false);
+                  TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Are you sure you want to logout!',
+                                  style: TextStyle(fontSize: 16)),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) => Home()));
+                                    },
+                                    child: Text('No')),
+                                TextButton(
+                                    onPressed: () async {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences
+                                              .getInstance();
+                                      await prefs.setBool(
+                                          'isLoggedIn', false);
 
-                                        Navigator.pushReplacement(
-                                            context,
-                                            CupertinoPageRoute(
-                                                builder: (context) =>
-                                                    SignIn()));
-                                      },
-                                      child: Text('Yes')),
-                                ],
-                              );
-                            });
-                      },
-                      child: Text(
-                        'logout',
-                        style: TextStyle(color: Colors.red, fontSize: 16),
-                      ),
+                                      Navigator.pushReplacement(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  SignIn()));
+                                    },
+                                    child: Text('Yes')),
+                              ],
+                            );
+                          });
+                    },
+                    child: Text(
+                      'logout',
+                      style: TextStyle(color: Colors.red, fontSize: 16),
                     ),
                   ),
                 ],

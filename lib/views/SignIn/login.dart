@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../widgets/customFloatingButton.dart';
+import '../../widgets/custom_elevated_button.dart';
 import '../../widgets/custom_textfeild.dart';
 import '../SignUp/SignUp.dart';
 import 'login_viewmodel.dart';
@@ -23,38 +24,42 @@ class SignIn extends StatelessWidget {
           key: viewModel.formKey,
           child: SafeArea(
               child: Scaffold(
-                  floatingActionButton: CustomFloatingButton(
-                    text: 'Sign In',
-                    onTap: () => viewModel.signIn(context),
-                  ),
+                  // floatingActionButton: CustomFloatingButton(
+                  //   text: 'Sign In',
+                  //   onTap: () => viewModel.signIn(context),
+                  // ),
                   body: SingleChildScrollView(
-                    child: Column(children: [
-                      SizedBox(height: h * .15),
+                    child: Column(
+                        children: [
+                      SizedBox(height: h * .12),
                       const SizedBox(
                           height: 110,
                           child: Image(
                               image: AssetImage('assets/cribbies_logo.png'))),
-                      Padding(
-                        padding: EdgeInsets.only(right: w * .67),
-                        child: Text("Email", style: TextStyle(fontSize: 12.98)),
-                      ),
+                      SizedBox(height: h * .08),
+                      // Padding(
+                      //   padding: EdgeInsets.only(right: w * .67),
+                      //   child: Text("Email", style: TextStyle(fontSize: 12.98)),
+                      // ),
                       const SizedBox(height: 6),
                       CustomTextFormField(
                         controller: viewModel.emailController,
-                        labelText: '',
+                        labelText: 'Email',
                         validateText: 'Please Enter Email',
                         icon: null,
                         height: h * 0.047,
                         width: w * 0.85,
                       ),
-                      SizedBox(height: h * .03),
-                      Padding(
-                        padding: EdgeInsets.only(right: w * .67),
+                      SizedBox(height: h * .04),
+                      // Padding(
+                      //   padding: EdgeInsets.only(right: w * .67),
+                      //
+                      //
+                      //   child: const Text("Password",
+                      //       style: TextStyle(fontSize: 12.98)),
+                      // ),
+                      const SizedBox(height: 6),
 
-                        
-                        child: const Text("Password",
-                            style: TextStyle(fontSize: 12.98)),
-                      ),
                       CustomTextFormField(
                         validateText: 'Please Enter Password',
                         height: h * 0.047,
@@ -62,33 +67,45 @@ class SignIn extends StatelessWidget {
                         suffixIcon: Icons.remove_red_eye_rounded,
                         controller: viewModel.passwordController,
                         obscureText: true,
-                        labelText: '',
+                        labelText: 'Password',
                         icon: CupertinoIcons.eye,
                       ),
-                      SizedBox(height: h * .08),
-                      // SizedBox(height: h * .15),
-                      Padding(
-                          padding: EdgeInsets.only(
-                            bottom: h * .04,
-                          ),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Don’t have an account ? ",
-                                    style: TextStyle()),
-                                InkWell(
-                                    onTap: () {
-                                      viewModel.onTapTxtSignUp(context);
-                                    },
-                                    child: const Text(
-                                      'Sign Up',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w700),
-                                    ))
-                              ])),
-                      SizedBox(height: h * .15),
+                      SizedBox(height: h * .06),
+                      CustomElevatedButton(
+                          buttonStyle: ButtonStyle(
+                              shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              backgroundColor:
+                              MaterialStatePropertyAll(Color(0xffF6D5CA))),
+                          width: 232,
+                          height: 43,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: Color(0xffF6D5CA)),
+                          text: "SIGN IN",
+                          margin: EdgeInsets.symmetric(horizontal: 32),
+                          onPressed: () {
+                            viewModel.signIn(context);
+                          }),
+                      SizedBox(height: h * .29),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Don’t have an account ? ",
+                                style: TextStyle()),
+                            InkWell(
+                                onTap: () {
+                                  viewModel.onTapTxtSignUp(context);
+                                },
+                                child: const Text(
+                                  'Sign Up',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700),
+                                ))
+                          ]),
                     ]),
                   ))),
         );

@@ -60,11 +60,6 @@ class _HomeState extends State<Home> {
             appBar: AppBar(
               automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
-              title: Text(
-                'HOME SCREEN',
-                style:
-                    TextStyle(fontSize: w * .06, fontWeight: FontWeight.w500),
-              ),
               centerTitle: true,
               actions: [
                 Padding(
@@ -78,12 +73,22 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            floatingActionButton: CustomFloatingButton(
-              onTap: () {
+            floatingActionButton: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FloatingActionButton(
+                shape: CircleBorder(side: BorderSide(color: Color(0xffF6D5CA),)),
+                backgroundColor: Color(0xffF6D5CA),
+                child: Icon(Icons.add,color: Colors.white,),
+                onPressed: () {
                 viewModel.onTapAddButton(context);
-              },
-              text: 'ADD PRODUCT ',
+              },),
             ),
+            // CustomFloatingButton(
+            //   onTap: () {
+            //     viewModel.onTapAddButton(context);
+            //   },
+            //   text: 'ADD PRODUCT ',
+            // ),
             body: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: StreamBuilder(
@@ -145,7 +150,7 @@ class _HomeState extends State<Home> {
                           child: Text(
                           'No Products Added !',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: w * .08),
+                              fontWeight: FontWeight.w500, fontSize: w * .04),
                         ));
                   // return Padding(
                   //   padding: EdgeInsets.all(6.0),
