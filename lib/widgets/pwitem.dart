@@ -1,21 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+class PwItem extends StatelessWidget {
+  final pdf = pw.Document();
 
-class ItemWidget extends StatelessWidget {
   final String name, ctc, qty, imageUrl, tag, userName,description;
-  const ItemWidget(
+   PwItem(
       {super.key,
-      required this.name,
-      required this.ctc,
-      required this.qty,
-      required this.imageUrl,
-      required this.tag,
-      required this.userName,
+        required this.name,
+        required this.ctc,
+        required this.qty,
+        required this.imageUrl,
+        required this.tag,
+        required this.userName,
         required this.description});
 
   @override
   Widget build(BuildContext context) {
+
     final w = MediaQuery.of(context).size.width;
     return Stack(
       children: [

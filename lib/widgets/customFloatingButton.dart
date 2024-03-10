@@ -12,7 +12,7 @@ class CustomFloatingButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: w * 0.91,
+        width: w * 0.9,
         height: w * 0.15,
         decoration: BoxDecoration(
             color: Color(0xffF6D5CA),

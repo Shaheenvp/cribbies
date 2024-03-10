@@ -1,3 +1,4 @@
+import 'package:Potrack/views/purchaseOrder_page/purchaseOrder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class SignUpViewModel extends BaseViewModel {
         // Navigate to the home screen after successful sign-up
         Navigator.pushAndRemoveUntil(
           context,
-          CupertinoPageRoute(builder: (context) => Home()),
+          CupertinoPageRoute(builder: (context) => PurchaseOrder()),
           (route) => false,
         );
       }

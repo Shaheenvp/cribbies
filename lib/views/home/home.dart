@@ -58,9 +58,134 @@ class _HomeState extends State<Home> {
             backgroundColor: Colors.white,
             endDrawer: CustomDrawer(),
             appBar: AppBar(
-              automaticallyImplyLeading: false,
+              automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               centerTitle: true,
+              // title: IconButton(onPressed: (){
+              //   final w = MediaQuery.of(context).size.width;
+              //   pdf.addPage(
+              //       pw.Page(build: (pw.Context context) {
+              //     return pw.ListView.builder(
+              //       padding:
+              //           pw.EdgeInsets.only(bottom: w * .25),
+              //       itemCount: viewModel..length,
+              //       itemBuilder: (context, int index) {
+              //         final product =
+              //             ProductModel.fromSnapshot(
+              //                 documents[index]);
+              //
+              //         // Replace the below return statement with your custom widget
+              //         return pw.Padding(
+              //             padding: pw.EdgeInsets.all(6.0),
+              //             child: pw.SizedBox(
+              //                 height: 150,
+              //                 child: pw.Stack(
+              //                   children: [
+              //                     pw.Positioned(
+              //                       left: 8,
+              //                       top: 10,
+              //                       bottom: 10,
+              //                       child: pw.Container(
+              //                         height: 120,
+              //                         width: 115,
+              //                         decoration: const pw
+              //                             .BoxDecoration(
+              //                           borderRadius: pw
+              //                                   .BorderRadius
+              //                               .all(pw.Radius
+              //                                   .circular(
+              //                                       17)),
+              //                         ),
+              //                         child:
+              //                             pw.Image.network(
+              //                           product.imageUrl,
+              //                           fit: BoxFit.cover,
+              //                         ),
+              //                       ),
+              //                     ),
+              //                     pw.Positioned(
+              //                       left: 140,
+              //                       top: 10,
+              //                       bottom: 10,
+              //                       child: pw.Column(
+              //                         crossAxisAlignment: pw
+              //                             .CrossAxisAlignment
+              //                             .start,
+              //                         children: [
+              //                           pw.Text(
+              //                               '${product.}',
+              //                               style: pw
+              //                                   .TextStyle(
+              //                                       fontSize:
+              //                                           15)),
+              //                           pw.SizedBox(
+              //                             height: 6,
+              //                           ),
+              //                           pw.Row(
+              //                             children: [
+              //                               pw.Text(
+              //                                   'QTY : ${product.quantity}',
+              //                                   style: pw
+              //                                       .TextStyle(
+              //                                     fontSize:
+              //                                         12,
+              //                                     // fontWeight: FontWeight.w300,
+              //                                   )),
+              //                               pw.SizedBox(
+              //                                 width:
+              //                                     w * .07,
+              //                               ),
+              //                               pw.Text(
+              //                                   'CTC : - ${product.ctc}',
+              //                                   style: pw
+              //                                       .TextStyle(
+              //                                     fontSize:
+              //                                         12,
+              //                                     // fontWeight: FontWeight.w300,
+              //                                   )),
+              //                             ],
+              //                           ),
+              //                           pw.SizedBox(
+              //                             height: 6,
+              //                           ),
+              //                           pw.Container(
+              //                             width: MediaQuery.of(
+              //                                         context)
+              //                                     .size
+              //                                     .width -
+              //                                 188,
+              //                             child: pw.Text(
+              //                                 'Dis : ${product.description}\n\n',
+              //                                 maxLines: 3,
+              //                                 style: pw
+              //                                     .TextStyle(
+              //                                   fontSize:
+              //                                       12,
+              //                                   // fontWeight: FontWeight.w300,
+              //                                 )),
+              //                           ),
+              //                           pw.SizedBox(
+              //                             height: 6,
+              //                           ),
+              //                           pw.Text(
+              //                             'ADDED BY -: ${product.userName}',
+              //                             style: pw.TextStyle(
+              //                                 // fontWeight: FontWeight.w500,
+              //                                 fontSize: 11),
+              //                           )
+              //                         ],
+              //                       ),
+              //                     ),
+              //                     pw.SizedBox(
+              //                       width: w * .05,
+              //                     ),
+              //                   ],
+              //                 )));
+              //       },
+              //     );
+              //   }));
+              //
+              // }, icon: Icon(Icons.share)),
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -83,12 +208,6 @@ class _HomeState extends State<Home> {
                 viewModel.onTapAddButton(context);
               },),
             ),
-            // CustomFloatingButton(
-            //   onTap: () {
-            //     viewModel.onTapAddButton(context);
-            //   },
-            //   text: 'ADD PRODUCT ',
-            // ),
             body: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: StreamBuilder(
@@ -108,7 +227,8 @@ class _HomeState extends State<Home> {
                   final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
                   return documents.isNotEmpty
-                      ? ListView.builder(
+                      ?
+                  ListView.builder(
                           padding: EdgeInsets.only(bottom: w * .25),
                           itemCount: documents.length,
                           itemBuilder: (BuildContext context, int index) {
@@ -122,7 +242,7 @@ class _HomeState extends State<Home> {
                                   elevation: 1,
                                   color: Colors.white,
                                   child: SizedBox(
-                                      height: 120,
+                                      height: 150,
                                       child: InkWell(
                                           onTap: () {
                                             Navigator.push(
@@ -142,6 +262,7 @@ class _HomeState extends State<Home> {
                                             name: product.productName,
                                             qty: product.quantity.toString(),
                                             imageUrl: product.imageUrl,
+                                            description: product.description.toString(),
                                           ))),
                                 ));
                           },

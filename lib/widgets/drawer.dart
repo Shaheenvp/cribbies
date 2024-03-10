@@ -2,6 +2,7 @@ import 'package:Potrack/utils/custom_snackBar.dart';
 import 'package:Potrack/views/Sholisted/shortlisted.dart';
 import 'package:Potrack/views/SignIn/login.dart';
 import 'package:Potrack/views/home/home.dart';
+import 'package:Potrack/views/purchaseOrder_page/purchaseOrder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class CustomDrawer extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.pushReplacement(context,
-                      CupertinoPageRoute(builder: (context) => Home()));
+                      CupertinoPageRoute(builder: (context) => PurchaseOrder()));
                 },
                 child: ListTile(
                   leading: Icon(Icons.home),

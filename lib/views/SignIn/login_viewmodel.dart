@@ -1,5 +1,6 @@
 import 'package:Potrack/utils/custom_snackBar.dart';
 import 'package:Potrack/utils/navigation_service.dart';
+import 'package:Potrack/views/purchaseOrder_page/purchaseOrder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,7 +44,7 @@ class SignInViewModel extends BaseViewModel {
             context: context,
             color: Colors.green);
         // Navigate to the home screen after successful sign-in
-        NavigationService.navigateRemoveUntil(context: context, screen: Home());
+        NavigationService.navigateRemoveUntil(context: context, screen: PurchaseOrder());
       }
     } catch (e) {
       // Handle errors

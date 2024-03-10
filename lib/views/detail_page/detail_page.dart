@@ -70,7 +70,7 @@ class DetailPage extends StatelessWidget {
                 child: Text(
                   'Quantity : ${productModel.quantity}',
                   style: TextStyle(
-                      fontSize: w * 0.04, fontWeight: FontWeight.w500),
+                      fontSize: w * 0.04, fontWeight: FontWeight.w400),
                 ),
               ),
               Padding(
@@ -78,7 +78,7 @@ class DetailPage extends StatelessWidget {
                 child: Text(
                   'CTC : ${productModel.ctc.toString()}',
                   style: TextStyle(
-                      fontSize: w * 0.04, fontWeight: FontWeight.w500),
+                      fontSize: w * 0.04, fontWeight: FontWeight.w400),
                 ),
               ),
               Padding(
@@ -86,7 +86,7 @@ class DetailPage extends StatelessWidget {
                 child: Text(
                   'Description : ${productModel.description}',
                   style: TextStyle(
-                      fontSize: w * 0.04, fontWeight: FontWeight.w500),
+                      fontSize: w * 0.04, fontWeight: FontWeight.w400),
                 ),
               ),
               SizedBox(

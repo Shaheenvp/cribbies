@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class HomeViewModel extends BaseViewModel {
+  class HomeViewModel extends BaseViewModel {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   onTapAddButton(context) {
     Navigator.push(
