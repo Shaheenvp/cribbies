@@ -13,7 +13,10 @@ import 'edit_item_viewmodel.dart';
 
 class EditItem extends StatefulWidget {
   final ProductModel product;
-  const EditItem({super.key, required this.product});
+  final String purchaseOrderDocId;
+
+  const EditItem(
+      {super.key, required this.product, required this.purchaseOrderDocId});
 
   @override
   State<EditItem> createState() => _EditItemState();
@@ -237,14 +240,15 @@ class _EditItemState extends State<EditItem> {
                             description: viewModel.descriptionController.text,
                             imageUrl: imageUrl.toString(),
                           );
-                          await viewModel.editProduct(product);
+                          await viewModel.editProduct(
+                              product, widget.purchaseOrderDocId);
 
                           showSnackBar(
                               content: 'Product Edited Successfully',
                               context: context,
                               color: Colors.green);
-                          NavigationService.navigatePushReplacement(
-                              screen: const Home(), context: context);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                         } else {
                           if (viewModel.pickedImage == null) {
                             showSnackBar(

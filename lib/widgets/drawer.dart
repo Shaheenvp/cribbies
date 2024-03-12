@@ -38,8 +38,10 @@ class CustomDrawer extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      CupertinoPageRoute(builder: (context) => PurchaseOrder()));
+                  Navigator.pushReplacement(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => PurchaseOrder()));
                 },
                 child: ListTile(
                   leading: Icon(Icons.home),
@@ -172,22 +174,20 @@ class CustomDrawer extends StatelessWidget {
                                       Navigator.pushReplacement(
                                           context,
                                           CupertinoPageRoute(
-                                              builder: (context) => Home()));
+                                              builder: (context) =>
+                                                  PurchaseOrder()));
                                     },
                                     child: Text('No')),
                                 TextButton(
                                     onPressed: () async {
                                       SharedPreferences prefs =
-                                          await SharedPreferences
-                                              .getInstance();
-                                      await prefs.setBool(
-                                          'isLoggedIn', false);
+                                          await SharedPreferences.getInstance();
+                                      await prefs.setBool('isLoggedIn', false);
 
                                       Navigator.pushReplacement(
                                           context,
                                           CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  SignIn()));
+                                              builder: (context) => SignIn()));
                                     },
                                     child: Text('Yes')),
                               ],

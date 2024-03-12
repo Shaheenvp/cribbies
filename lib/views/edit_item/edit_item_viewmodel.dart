@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../models/productModel.dart';
+import '../purchaseOrder_page/purchaseOrder.dart';
 
 String? imageUrl = '';
 
@@ -50,10 +51,12 @@ class EditItemViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> editProduct(ProductModel product) async {
+  Future<void> editProduct(ProductModel product, purchaseOrderDocId) async {
     try {
       // Add the product to Firestore
       await FirebaseFirestore.instance
+          .collection('purchaseOrders')
+          .doc(purchaseOrderDocId)
           .collection('products')
           .doc(product.id)
           .update(product.toMap());
@@ -77,9 +80,6 @@ class EditItemViewModel extends BaseViewModel {
         print('No image selected.');
       }
       imageUrl = await uploadImageToFirebase();
-
-      print(imageUrl);
-      print("imageUrl--");
     } catch (e) {
       print('Error taking picture: $e');
     }

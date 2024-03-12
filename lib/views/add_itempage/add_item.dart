@@ -12,7 +12,8 @@ import '../../models/productModel.dart';
 import 'add_item_viewmodel.dart';
 
 class AddItemPage extends StatefulWidget {
-  const AddItemPage({super.key});
+  final String purchaseOrderDocId;
+  const AddItemPage({super.key, required this.purchaseOrderDocId});
 
   @override
   State<AddItemPage> createState() => _AddItemPageState();
@@ -20,6 +21,13 @@ class AddItemPage extends StatefulWidget {
 
 class _AddItemPageState extends State<AddItemPage> {
   bool _isLoading = false;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    imageUrl = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +84,6 @@ class _AddItemPageState extends State<AddItemPage> {
                                 ? GestureDetector(
                                     onTap: () async {
                                       await viewModel.takePicture();
-
                                       setState(() {});
                                     },
                                     child: Image.file(
@@ -268,14 +275,15 @@ class _AddItemPageState extends State<AddItemPage> {
                             description: viewModel.descriptionController.text,
                             imageUrl: imageUrl.toString(),
                           );
-                          await viewModel.addProductToFirestore(product);
+                          await viewModel.addProductToFirestore(
+                              product, widget.purchaseOrderDocId);
 
                           showSnackBar(
                               content: 'Product Added Successfully',
                               context: context,
                               color: Colors.green);
-                          NavigationService.navigatePushReplacement(
-                              screen: const Home(), context: context);
+                          Navigator.pop(context);
+                          // Navigator.pop(context);
                         } else {
                           if (viewModel.pickedImage == null) {
                             showSnackBar(

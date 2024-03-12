@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Potrack/views/purchaseOrder_page/purchaseOrder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,7 +22,8 @@ class AddItemViewModel extends BaseViewModel {
   // XFile? get pickedImage => pickedImage;
 
   Future<void> pickImage() async {
-    pickedImage = await _imagePicker.pickImage(source: ImageSource.gallery);
+    pickedImage = await _imagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 30);
 
     if (pickedImage != null) {
       pickedImage = pickedImage;
@@ -49,10 +51,13 @@ class AddItemViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> addProductToFirestore(ProductModel product) async {
+  Future<void> addProductToFirestore(
+      ProductModel product, purchaseOrderDocId) async {
     try {
       // Add the product to Firestore
       DocumentReference docRef = await FirebaseFirestore.instance
+          .collection('purchaseOrders')
+          .doc(purchaseOrderDocId)
           .collection('products')
           .add(product.toMap());
 
@@ -70,8 +75,8 @@ class AddItemViewModel extends BaseViewModel {
 
   Future<void> takePicture() async {
     try {
-      final pickedFile =
-          await _imagePicker.pickImage(source: ImageSource.camera);
+      final pickedFile = await _imagePicker.pickImage(
+          source: ImageSource.camera, imageQuality: 30);
 
       print(imageUrl);
       print("imageUrl");

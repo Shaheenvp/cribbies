@@ -11,11 +11,13 @@ import 'package:stacked/stacked.dart';
 import '../../main.dart';
 import '../../models/productModel.dart';
 import '../../widgets/customFloatingButton.dart';
+import '../purchaseOrder_page/purchaseOrder.dart';
 
 String userName = '';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final String purchaseOrderDocId;
+  const Home({super.key, required this.purchaseOrderDocId});
 
   @override
   State<Home> createState() => _HomeState();
@@ -61,131 +63,6 @@ class _HomeState extends State<Home> {
               automaticallyImplyLeading: true,
               backgroundColor: Colors.white,
               centerTitle: true,
-              // title: IconButton(onPressed: (){
-              //   final w = MediaQuery.of(context).size.width;
-              //   pdf.addPage(
-              //       pw.Page(build: (pw.Context context) {
-              //     return pw.ListView.builder(
-              //       padding:
-              //           pw.EdgeInsets.only(bottom: w * .25),
-              //       itemCount: viewModel..length,
-              //       itemBuilder: (context, int index) {
-              //         final product =
-              //             ProductModel.fromSnapshot(
-              //                 documents[index]);
-              //
-              //         // Replace the below return statement with your custom widget
-              //         return pw.Padding(
-              //             padding: pw.EdgeInsets.all(6.0),
-              //             child: pw.SizedBox(
-              //                 height: 150,
-              //                 child: pw.Stack(
-              //                   children: [
-              //                     pw.Positioned(
-              //                       left: 8,
-              //                       top: 10,
-              //                       bottom: 10,
-              //                       child: pw.Container(
-              //                         height: 120,
-              //                         width: 115,
-              //                         decoration: const pw
-              //                             .BoxDecoration(
-              //                           borderRadius: pw
-              //                                   .BorderRadius
-              //                               .all(pw.Radius
-              //                                   .circular(
-              //                                       17)),
-              //                         ),
-              //                         child:
-              //                             pw.Image.network(
-              //                           product.imageUrl,
-              //                           fit: BoxFit.cover,
-              //                         ),
-              //                       ),
-              //                     ),
-              //                     pw.Positioned(
-              //                       left: 140,
-              //                       top: 10,
-              //                       bottom: 10,
-              //                       child: pw.Column(
-              //                         crossAxisAlignment: pw
-              //                             .CrossAxisAlignment
-              //                             .start,
-              //                         children: [
-              //                           pw.Text(
-              //                               '${product.}',
-              //                               style: pw
-              //                                   .TextStyle(
-              //                                       fontSize:
-              //                                           15)),
-              //                           pw.SizedBox(
-              //                             height: 6,
-              //                           ),
-              //                           pw.Row(
-              //                             children: [
-              //                               pw.Text(
-              //                                   'QTY : ${product.quantity}',
-              //                                   style: pw
-              //                                       .TextStyle(
-              //                                     fontSize:
-              //                                         12,
-              //                                     // fontWeight: FontWeight.w300,
-              //                                   )),
-              //                               pw.SizedBox(
-              //                                 width:
-              //                                     w * .07,
-              //                               ),
-              //                               pw.Text(
-              //                                   'CTC : - ${product.ctc}',
-              //                                   style: pw
-              //                                       .TextStyle(
-              //                                     fontSize:
-              //                                         12,
-              //                                     // fontWeight: FontWeight.w300,
-              //                                   )),
-              //                             ],
-              //                           ),
-              //                           pw.SizedBox(
-              //                             height: 6,
-              //                           ),
-              //                           pw.Container(
-              //                             width: MediaQuery.of(
-              //                                         context)
-              //                                     .size
-              //                                     .width -
-              //                                 188,
-              //                             child: pw.Text(
-              //                                 'Dis : ${product.description}\n\n',
-              //                                 maxLines: 3,
-              //                                 style: pw
-              //                                     .TextStyle(
-              //                                   fontSize:
-              //                                       12,
-              //                                   // fontWeight: FontWeight.w300,
-              //                                 )),
-              //                           ),
-              //                           pw.SizedBox(
-              //                             height: 6,
-              //                           ),
-              //                           pw.Text(
-              //                             'ADDED BY -: ${product.userName}',
-              //                             style: pw.TextStyle(
-              //                                 // fontWeight: FontWeight.w500,
-              //                                 fontSize: 11),
-              //                           )
-              //                         ],
-              //                       ),
-              //                     ),
-              //                     pw.SizedBox(
-              //                       width: w * .05,
-              //                     ),
-              //                   ],
-              //                 )));
-              //       },
-              //     );
-              //   }));
-              //
-              // }, icon: Icon(Icons.share)),
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -201,17 +78,26 @@ class _HomeState extends State<Home> {
             floatingActionButton: Padding(
               padding: const EdgeInsets.all(8.0),
               child: FloatingActionButton(
-                shape: CircleBorder(side: BorderSide(color: Color(0xffF6D5CA),)),
+                shape: CircleBorder(
+                    side: BorderSide(
+                  color: Color(0xffF6D5CA),
+                )),
                 backgroundColor: Color(0xffF6D5CA),
-                child: Icon(Icons.add,color: Colors.white,),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
                 onPressed: () {
-                viewModel.onTapAddButton(context);
-              },),
+                  viewModel.onTapAddButton(context, widget.purchaseOrderDocId);
+                },
+              ),
             ),
             body: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
+                    .collection('purchaseOrders')
+                    .doc(widget.purchaseOrderDocId)
                     .collection('products')
                     .snapshots(),
                 builder: (BuildContext context,
@@ -227,8 +113,8 @@ class _HomeState extends State<Home> {
                   final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
                   return documents.isNotEmpty
-                      ?
-                  ListView.builder(
+                      ? ListView.builder(
+                          shrinkWrap: true,
                           padding: EdgeInsets.only(bottom: w * .25),
                           itemCount: documents.length,
                           itemBuilder: (BuildContext context, int index) {
@@ -242,7 +128,7 @@ class _HomeState extends State<Home> {
                                   elevation: 1,
                                   color: Colors.white,
                                   child: SizedBox(
-                                      height: 150,
+                                      height: w * .45,
                                       child: InkWell(
                                           onTap: () {
                                             Navigator.push(
@@ -252,6 +138,8 @@ class _HomeState extends State<Home> {
                                                         DetailPage(
                                                           tag: 'tag$index',
                                                           productModel: product,
+                                                          purchaseOrderDocId: widget
+                                                              .purchaseOrderDocId,
                                                         )));
                                           },
                                           child: ItemWidget(
@@ -262,7 +150,8 @@ class _HomeState extends State<Home> {
                                             name: product.productName,
                                             qty: product.quantity.toString(),
                                             imageUrl: product.imageUrl,
-                                            description: product.description.toString(),
+                                            description:
+                                                product.description.toString(),
                                           ))),
                                 ));
                           },
@@ -273,23 +162,6 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: w * .04),
                         ));
-                  // return Padding(
-                  //   padding: EdgeInsets.all(6.0),
-                  //   child: Card(
-                  //     elevation: 1,
-                  //     color: Colors.white,
-                  //     child: SizedBox(
-                  //         height: 120,
-                  //         child: InkWell(
-                  //             onTap: () {
-                  //               Navigator.push(
-                  //                   context,
-                  //                   CupertinoPageRoute(
-                  //                       builder: (context) => DetailPage()));
-                  //             },
-                  //             child: ItemWidget())),
-                  //   ),
-                  // );
                 },
               ),
             ));

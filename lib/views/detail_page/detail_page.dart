@@ -3,15 +3,21 @@ import 'package:Potrack/utils/navigation_service.dart';
 import 'package:Potrack/views/detail_page/detail_page_viewmodel.dart';
 import 'package:Potrack/views/edit_item/edit_item.dart';
 import 'package:Potrack/views/home/home.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class DetailPage extends StatelessWidget {
+  final String purchaseOrderDocId;
   final String tag;
   final ProductModel productModel;
-  const DetailPage({super.key, required this.productModel, required this.tag});
+  const DetailPage(
+      {super.key,
+      required this.productModel,
+      required this.tag,
+      required this.purchaseOrderDocId});
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +38,15 @@ class DetailPage extends StatelessWidget {
                     width: w,
                     color: Colors.white38,
                     child: InteractiveViewer(
-                      child: Image.network(
-                        productModel.imageUrl,
-                        fit: BoxFit.fill,
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        width: w,
+                        imageUrl: productModel.imageUrl,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                CircularProgressIndicator(
+                                    value: downloadProgress.progress),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                     ),
                   ),
@@ -90,7 +102,7 @@ class DetailPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: h*0.18,
+                height: h * 0.18,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +110,10 @@ class DetailPage extends StatelessWidget {
                   IconButton(
                       onPressed: () => NavigationService.navigateToScreen(
                           context: context,
-                          screen: EditItem(product: productModel)),
+                          screen: EditItem(
+                            product: productModel,
+                            purchaseOrderDocId: purchaseOrderDocId,
+                          )),
                       icon: Icon(
                         Icons.edit,
                         color: Colors.green,
@@ -142,6 +157,8 @@ class DetailPage extends StatelessWidget {
                       // If user confirms deletion, proceed with deleting the document
                       if (confirmDelete ?? false) {
                         DocumentReference docRef = FirebaseFirestore.instance
+                            .collection('purchaseOrders')
+                            .doc(purchaseOrderDocId)
                             .collection('products')
                             .doc(productModel.id);
                         await docRef.delete();
