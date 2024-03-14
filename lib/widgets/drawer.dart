@@ -45,7 +45,7 @@ class CustomDrawer extends StatelessWidget {
                 },
                 child: ListTile(
                   leading: Icon(Icons.home),
-                  title: Text('HOME'),
+                  title: Text('Home'),
                 ),
               ),
               const Divider(
@@ -62,8 +62,8 @@ class CustomDrawer extends StatelessWidget {
                   //     MaterialPageRoute(builder: (context) => Shortlisted()));
                 },
                 child: ListTile(
-                  leading: Icon(Icons.save),
-                  title: Text('Shortlisted'),
+                  leading: Icon(Icons.share),
+                  title: Text('Share'),
                 ),
               ),
               const Divider(

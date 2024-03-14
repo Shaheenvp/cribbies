@@ -34,7 +34,13 @@ class ItemWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 imageUrl: imageUrl,
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    CircularProgressIndicator(value: downloadProgress.progress),
+                    Transform.scale(
+                      scale: .4,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1,
+                          color: Colors.black,
+                          value: downloadProgress.progress),
+                    ),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
@@ -54,7 +60,6 @@ class ItemWidget extends StatelessWidget {
         //     ),
         //   ),
         // ),
-
         Positioned(
           left: 140,
           top: 10,
@@ -105,9 +110,6 @@ class ItemWidget extends StatelessWidget {
               )
             ],
           ),
-        ),
-        SizedBox(
-          width: w * .05,
         ),
       ],
     );

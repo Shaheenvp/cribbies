@@ -142,7 +142,7 @@ class _PurchaseOrderState extends State<PurchaseOrder> {
                       )
                     : Center(
                         child: Text(
-                        "PLEASE ADD PURCHASE ORDER",
+                        "NO PURCHASE ORDER FOUND",
                         style: TextStyle(
                             fontSize: w * .04, fontWeight: FontWeight.w700),
                       ));

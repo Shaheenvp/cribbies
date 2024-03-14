@@ -36,7 +36,7 @@ class PurchaseOrderViewModel extends BaseViewModel {
                     if (purchaseorderctrl.text.isNotEmpty) {
                       Navigator.pop(context);
                       showSnackBar(
-                          content: "New Order Tile Created",
+                          content: "New Purchase Order Created",
                           context: context,
                           color: Colors.green);
                       final docRef = await FirebaseFirestore.instance

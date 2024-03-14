@@ -75,6 +75,8 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+
+
             floatingActionButton: Padding(
               padding: const EdgeInsets.all(8.0),
               child: FloatingActionButton(
@@ -92,6 +94,11 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
+
+
+
+
+
             body: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: StreamBuilder(
