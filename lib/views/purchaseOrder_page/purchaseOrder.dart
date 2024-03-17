@@ -119,12 +119,42 @@ class _PurchaseOrderState extends State<PurchaseOrder> {
                                         children: [
                                           IconButton(
                                               onPressed: () async {
-                                                await FirebaseFirestore.instance
-                                                    .collection(
-                                                        'purchaseOrders')
-                                                    .doc(
-                                                        purchaseOrderData['id'])
-                                                    .delete();
+
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text("Confirm Deletion"),
+                                                      content: Text(
+                                                        "Are you sure you want to delete this PURCHASE ORDER ?",
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          child: Text("Cancel"),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () async {
+                                                            await FirebaseFirestore.instance
+                                                                .collection(
+                                                                'purchaseOrders')
+                                                                .doc(
+                                                                purchaseOrderData['id'])
+                                                                .delete();
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          child: Text(
+                                                            "Delete",
+                                                            style: TextStyle(color: Colors.red),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
                                               },
                                               icon: Icon(
                                                 CupertinoIcons.delete_solid,

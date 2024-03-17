@@ -77,7 +77,7 @@ class _SignUpState extends State<SignUp> {
                           height: 43,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
-                              color: Color(0xffF6D5CA)),
+                              ),
                           text: "SIGN UP",
                           margin: EdgeInsets.symmetric(horizontal: 32),
                           onPressed: () {

@@ -47,7 +47,8 @@ class ProductModel {
     }
 
     return ProductModel(
-      id: data['id'], // Assign id from snapshot
+      id: data['id'],
+      // Assign id from snapshot
       productName: data['productName'],
       quantity: data['quantity'],
       ctc: data['ctc'],
@@ -68,4 +69,10 @@ class ProductModel {
       userName: map['userName'],
     );
   }
+
+  static List<ProductModel> productListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return ProductModel.fromSnapshot(doc);
+    }).toList();
+    }
 }

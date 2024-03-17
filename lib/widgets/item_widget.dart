@@ -7,16 +7,18 @@ class ItemWidget extends StatelessWidget {
   final String name, ctc, qty, imageUrl, tag, userName, description;
   const ItemWidget(
       {super.key,
-      required this.name,
-      required this.ctc,
-      required this.qty,
-      required this.imageUrl,
-      required this.tag,
-      required this.userName,
-      required this.description});
+        required this.name,
+        required this.ctc,
+        required this.qty,
+        required this.imageUrl,
+        required this.tag,
+        required this.userName,
+        required this.description});
 
   @override
   Widget build(BuildContext context) {
+    const double imageWidth = 120.0; // Fixed width for the image
+    final double textWidth = MediaQuery.of(context).size.width - imageWidth - 24;
     final w = MediaQuery.of(context).size.width;
     return Stack(
       children: [
@@ -28,38 +30,27 @@ class ItemWidget extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
-            child: Hero(
-              tag: tag,
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: imageUrl,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Transform.scale(
-                      scale: .4,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 1,
-                          color: Colors.black,
-                          value: downloadProgress.progress),
-                    ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+            child: Container(
+              width: imageWidth,
+              child: Hero(
+                tag: tag,
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl: imageUrl,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Transform.scale(
+                        scale: .4,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 1,
+                            color: Colors.black,
+                            value: downloadProgress.progress),
+                      ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
               ),
             ),
           ),
         ),
-        // child: Container(
-        //   height: 120,
-        //   width: 115,
-        //   decoration: const BoxDecoration(
-        //     borderRadius: BorderRadius.all(Radius.circular(17)),
-        //   ),
-        //   child: Hero(
-        //     tag: tag,
-        //     child: Image.network(
-        //       imageUrl,
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
         Positioned(
           left: 140,
           top: 10,
@@ -79,9 +70,7 @@ class ItemWidget extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w300,
                       )),
-                  SizedBox(
-                    width: w * .07,
-                  ),
+                  SizedBox(width: textWidth * .07),
                   Text('CTC : - $ctc',
                       style: TextStyle(
                         fontSize: 12,
@@ -93,14 +82,14 @@ class ItemWidget extends StatelessWidget {
                 height: 6,
               ),
               Container(
-                width: MediaQuery.of(context).size.width - 188,
-                child: Text('Dis : $description\n\n',
-                    maxLines: 3,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300,
-                    )),
+                width: textWidth,
+                child: Text(
+                  'Dis : $description\n\n',
+                  maxLines: 3,
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+                ),
               ),
+
               SizedBox(
                 height: 6,
               ),

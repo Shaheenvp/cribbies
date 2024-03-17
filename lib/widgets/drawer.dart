@@ -11,15 +11,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({Key? key});
 
-  final CollectionReference productCollection =
-      FirebaseFirestore.instance.collection('products');
-
   Future<void> deleteAllProducts() async {
-    QuerySnapshot querySnapshot = await productCollection.get();
-    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-      await doc.reference.delete();
+    try {
+      QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('purchaseOrders').get();
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        await doc.reference.delete();
+      }
+      print('All products deleted successfully');
+    } catch (e) {
+      print('Error deleting products: $e');
     }
-    print('All products deleted successfully');
   }
 
   @override
@@ -51,20 +53,9 @@ class CustomDrawer extends StatelessWidget {
               const Divider(
                 thickness: 1,
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  showSnackBar(
-                      content: 'Coming Soon',
-                      context: context,
-                      color: Colors.green);
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => Shortlisted()));
-                },
-                child: ListTile(
-                  leading: Icon(Icons.share),
-                  title: Text('Share'),
-                ),
+              ListTile(
+                leading: Icon(Icons.share),
+                title: Text('Dummy'),
               ),
               const Divider(
                 thickness: 1,
@@ -102,7 +93,7 @@ class CustomDrawer extends StatelessWidget {
                       builder: (context) {
                         return AlertDialog(
                           title: Text(
-                            'Are you sure you want to delete all data!',
+                            'Are you sure you want to delete all data including PURCHASE ORDER!',
                             style: TextStyle(fontSize: 16),
                           ),
                           actions: [
@@ -120,7 +111,7 @@ class CustomDrawer extends StatelessWidget {
                         return AlertDialog(
                           title: Text("Confirm Deletion"),
                           content: Text(
-                            "Are you sure you want to delete all PRODUCTS ?",
+                            "Are you sure you want to delete all PURCHASE ORDERS ?",
                             textAlign: TextAlign.center,
                           ),
                           actions: [
@@ -181,7 +172,7 @@ class CustomDrawer extends StatelessWidget {
                                 TextButton(
                                     onPressed: () async {
                                       SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
+                                      await SharedPreferences.getInstance();
                                       await prefs.setBool('isLoggedIn', false);
 
                                       Navigator.pushReplacement(

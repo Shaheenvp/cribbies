@@ -79,7 +79,7 @@ class SignIn extends StatelessWidget {
                           height: 43,
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
-                              color: Color(0xffF6D5CA)),
+                              ),
                           text: "SIGN IN",
                           margin: EdgeInsets.symmetric(horizontal: 32),
                           onPressed: () {
