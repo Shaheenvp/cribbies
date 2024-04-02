@@ -175,10 +175,11 @@ class CustomDrawer extends StatelessWidget {
                                       await SharedPreferences.getInstance();
                                       await prefs.setBool('isLoggedIn', false);
 
-                                      Navigator.pushReplacement(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) => SignIn()));
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        CupertinoPageRoute(builder: (context) => SignIn()),
+                                            (route) => false,
+                                      );
                                     },
                                     child: Text('Yes')),
                               ],

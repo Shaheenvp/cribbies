@@ -64,17 +64,51 @@ class _HomeState extends State<Home> {
                 automaticallyImplyLeading: true,
                 backgroundColor: Colors.white,
                 centerTitle: true,
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      onPressed: () {
-                        viewModel.scaffoldKey.currentState!.openEndDrawer();
+                  actions: [
+                    IconButton(
+                      onPressed: () async {
+                        // Show a loading indicator
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                        );
+
+                        // Retrieve the products from Firestore
+                        List<ProductModel> productList = [];
+                        QuerySnapshot snapshot = await FirebaseFirestore.instance
+                            .collection('purchaseOrders')
+                            .doc(widget.purchaseOrderDocId)
+                            .collection('products')
+                            .get();
+                        snapshot.docs.forEach((doc) {
+                          productList.add(ProductModel.fromSnapshot(doc));
+                        });
+
+                        // Generate and share the PDF
+                        await generatePDF(productList);
+
+                        // Close the loading indicator
+                        Navigator.of(context).pop();
                       },
-                      icon: Icon(Icons.menu),
+                      icon: Icon(Icons.share),
                     ),
-                  ),
-                ],
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        onPressed: () {
+                          viewModel.scaffoldKey.currentState!.openEndDrawer();
+                        },
+                        icon: Icon(Icons.menu),
+                      ),
+                    ),
+                  ]
+
               ),
 
 
@@ -131,30 +165,7 @@ class _HomeState extends State<Home> {
                         ProductModel.productListFromSnapshot(
                             snapshot.data!);
                         // Replace the below return statement with your custom widget
-                        GestureDetector(
-                          child: IconButton(
-                            icon: Icon(CupertinoIcons.share),
-                            onPressed: () async {
-                              // Show a loading indicator
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                },
-                              );
-
-                              // Generate and share the PDF
-                              await generatePDF(productList);
-
-                              // Close the loading indicator
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        );
-                             Padding(
+                        return Padding(
                             padding: EdgeInsets.all(6.0),
                             child: Card(
                               elevation: 1,
